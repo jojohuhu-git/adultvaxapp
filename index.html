@@ -218,10 +218,9 @@ select:focus, input[type="number"]:focus {
 .date-entry-wrap {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   flex: 1;
-  min-width: 0;
-  flex-wrap: nowrap;
+  min-width: 220px;
 }
 .date-input-full {
   font-family: var(--font);
@@ -232,8 +231,7 @@ select:focus, input[type="number"]:focus {
   font-size: 0.88rem;
   padding: 9px 8px;
   flex: 1;
-  min-width: 0;
-  max-width: 160px;
+  min-width: 120px;
   transition: border-color 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
 }
@@ -650,13 +648,22 @@ select:focus, input[type="number"]:focus {
 /* Vaccine history list */
 .vax-history-list { display: flex; flex-direction: column; gap: 5px; }
 .vax-hist-item {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 0.95rem; padding: 7px 12px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.9rem; padding: 7px 10px;
   background: var(--surface); border-radius: 7px; border: 1px solid var(--border);
+  min-width: 0;
 }
 .vax-hist-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.vax-hist-name { font-weight: 700; color: var(--ink); }
-.vax-hist-date { color: var(--ink3); font-family: var(--mono); font-size: 0.8rem; margin-left: auto; }
+.vax-hist-name {
+  font-weight: 700; color: var(--ink);
+  flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vax-hist-date {
+  color: var(--ink3); font-family: var(--mono); font-size: 0.8rem;
+  flex-shrink: 0; white-space: nowrap; margin-left: 4px;
+}
+.remove-btn { flex-shrink: 0; }
 
 /* Collapsible forecast section */
 .collapsible-toggle {
