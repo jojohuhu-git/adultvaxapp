@@ -205,14 +205,22 @@ select:focus, input[type="number"]:focus {
 .remove-btn:hover { color: var(--red); background: var(--red-pale); }
 
 .add-vax-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 6px; align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.add-vax-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 .date-entry-wrap {
   display: flex;
   align-items: center;
   gap: 5px;
+  flex: 1;
+  min-width: 0;
   flex-wrap: nowrap;
 }
 .date-input-full {
@@ -223,7 +231,9 @@ select:focus, input[type="number"]:focus {
   color: var(--ink);
   font-size: 0.88rem;
   padding: 9px 8px;
-  width: 148px;
+  flex: 1;
+  min-width: 0;
+  max-width: 160px;
   transition: border-color 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
 }
@@ -240,7 +250,8 @@ select:focus, input[type="number"]:focus {
   color: var(--ink);
   font-size: 0.88rem;
   padding: 9px 6px;
-  width: 72px;
+  width: 68px;
+  flex-shrink: 0;
   transition: border-color 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
   -moz-appearance: textfield;
@@ -908,12 +919,14 @@ select:focus, input[type="number"]:focus {
             <option value="ppsv23">PPSV23 (Pneumovax 23)</option>
             <option value="unknown_pcv">Unknown PCV (brand unknown)</option>
           </select>
-          <div class="date-entry-wrap">
-            <input type="date" id="pneu-date" class="date-input-full" title="Full date (more precise)">
-            <span class="date-or">or</span>
-            <input type="number" id="pneu-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
+          <div class="add-vax-bottom">
+            <div class="date-entry-wrap">
+              <input type="date" id="pneu-date" class="date-input-full" title="Full date (more precise)">
+              <span class="date-or">or</span>
+              <input type="number" id="pneu-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
+            </div>
+            <button class="add-btn" data-type="pneu" onclick="addVax('pneu')">+ Add</button>
           </div>
-          <button class="add-btn" data-type="pneu" onclick="addVax('pneu')">+ Add</button>
         </div>
       </div>
 
@@ -939,12 +952,14 @@ select:focus, input[type="number"]:focus {
               <option value="menabcwy_penmenvy">Penmenvy (MenABCWY — GSK)</option>
             </optgroup>
           </select>
-          <div class="date-entry-wrap">
-            <input type="date" id="mening-date" class="date-input-full" title="Full date (more precise)">
-            <span class="date-or">or</span>
-            <input type="number" id="mening-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
+          <div class="add-vax-bottom">
+            <div class="date-entry-wrap">
+              <input type="date" id="mening-date" class="date-input-full" title="Full date (more precise)">
+              <span class="date-or">or</span>
+              <input type="number" id="mening-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
+            </div>
+            <button class="add-btn" data-type="mening" onclick="addVax('mening')">+ Add</button>
           </div>
-          <button class="add-btn" data-type="mening" onclick="addVax('mening')">+ Add</button>
         </div>
       </div>
 
