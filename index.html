@@ -210,17 +210,10 @@ select:focus, input[type="number"]:focus {
   gap: 8px;
 }
 .add-vax-bottom {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
-}
-.date-entry-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-  min-width: 220px;
 }
 .date-input-full {
   font-family: var(--font);
@@ -230,8 +223,8 @@ select:focus, input[type="number"]:focus {
   color: var(--ink);
   font-size: 0.88rem;
   padding: 9px 8px;
-  flex: 1;
-  min-width: 120px;
+  width: 100%;
+  min-width: 0;
   transition: border-color 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
 }
@@ -249,7 +242,6 @@ select:focus, input[type="number"]:focus {
   font-size: 0.88rem;
   padding: 9px 6px;
   width: 68px;
-  flex-shrink: 0;
   transition: border-color 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
   -moz-appearance: textfield;
@@ -266,7 +258,6 @@ select:focus, input[type="number"]:focus {
   color: var(--ink3);
   white-space: nowrap;
   font-weight: 500;
-  flex-shrink: 0;
 }
 .add-btn {
   font-family: var(--font);
@@ -927,11 +918,9 @@ select:focus, input[type="number"]:focus {
             <option value="unknown_pcv">Unknown PCV (brand unknown)</option>
           </select>
           <div class="add-vax-bottom">
-            <div class="date-entry-wrap">
-              <input type="date" id="pneu-date" class="date-input-full" title="Full date (more precise)">
-              <span class="date-or">or</span>
-              <input type="number" id="pneu-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
-            </div>
+            <input type="date" id="pneu-date" class="date-input-full" title="Full date (more precise)">
+            <span class="date-or">or</span>
+            <input type="number" id="pneu-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
             <button class="add-btn" data-type="pneu" onclick="addVax('pneu')">+ Add</button>
           </div>
         </div>
@@ -960,11 +949,9 @@ select:focus, input[type="number"]:focus {
             </optgroup>
           </select>
           <div class="add-vax-bottom">
-            <div class="date-entry-wrap">
-              <input type="date" id="mening-date" class="date-input-full" title="Full date (more precise)">
-              <span class="date-or">or</span>
-              <input type="number" id="mening-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
-            </div>
+            <input type="date" id="mening-date" class="date-input-full" title="Full date (more precise)">
+            <span class="date-or">or</span>
+            <input type="number" id="mening-year" class="date-input-year" placeholder="Year" min="1980" max="2030" title="Year only">
             <button class="add-btn" data-type="mening" onclick="addVax('mening')">+ Add</button>
           </div>
         </div>
@@ -1201,18 +1188,18 @@ function ref(sources) {
 
 const REFS = {
   immunize_pneu: {
-    label:'immunize.org',
-    tip:'immunize.org — Pneumococcal Vaccine Resources for Healthcare Providers. Updated 2025.',
+    label:'immunize.org Pneumo',
+    tip:'immunize.org — Pneumococcal Vaccine Resources for Healthcare Providers. Hub page with PCV15/PCV20/PCV21/PPSV23 product info, serotype 4 map, standing orders templates, and links to Ask the Experts Q&A and ACIP recommendations. Updated January 2026.',
     url:'https://www.immunize.org/vaccines/a-z/pneumococcal/'
   },
   immunize_menc: {
-    label:'immunize.org',
-    tip:'immunize.org — Meningococcal ACWY Immunization Resources for Healthcare Providers. Updated Jan 2026.',
+    label:'immunize.org MenACWY',
+    tip:'immunize.org — Meningococcal ACWY Immunization Resources for Healthcare Providers. Hub page with product info, standing orders, and links to Ask the Experts Q&A, VIS, and current ACIP recommendations. Updated Jan 2026.',
     url:'https://www.immunize.org/vaccines/a-z/menacwy/'
   },
   immunize_menb: {
-    label:'immunize.org',
-    tip:'immunize.org — Meningococcal B Immunization Resources for Healthcare Providers. Updated 2025.',
+    label:'immunize.org MenB',
+    tip:'immunize.org — Meningococcal B Immunization Resources for Healthcare Providers. Hub page with Bexsero®/Trumenba® product info, Penbraya™ combination guidance, standing orders, SCDM decision aid, and Ask the Experts links. Updated 2025.',
     url:'https://www.immunize.org/vaccines/a-z/menb/'
   },
   cdc_adult: {
@@ -1293,8 +1280,8 @@ const REFS = {
   // ── immunize.org Ask the Experts (ATE) pages ──
   ate_pneu: {
     label:'immunize.org ATE: Pneumo',
-    tip:'immunize.org Ask the Experts — Pneumococcal Vaccines. Clinical Q&A covering adult recommendations, PCV15/PCV20/PCV21/PPSV23 scheduling, timing violations, serotype 4 geography, and special situations. Updated September 2025.',
-    url:'https://www.immunize.org/ask-experts/topic/pneumococcal/'
+    tip:'immunize.org Ask the Experts — Pneumococcal: Adult Recommendations. Q&A on PCV15/PCV20/PCV21/PPSV23 scheduling for adults ≥50 and high-risk adults 19–49. Covers why age was lowered to 50, serotype 4 geography, and PPSV23 no longer recommended alone. Updated September 2025.',
+    url:'https://www.immunize.org/ask-experts/topic/pneumococcal/recommendations-adults/'
   },
   ate_pneu_pcv13: {
     label:'immunize.org ATE: PCV13 Adults',
@@ -1302,14 +1289,14 @@ const REFS = {
     url:'https://www.immunize.org/ask-experts/topic/pneumococcal/adults-pcv13/'
   },
   ate_pneu_sched: {
-    label:'immunize.org ATE: Pneumo Scheduling',
-    tip:'immunize.org Ask the Experts — Pneumococcal: Scheduling & Documentation. Q&A on PCV15+PPSV23 intervals, what to do when doses are given early, and minimum intervals (8 weeks for immunocompromised, 1 year standard). Updated September 2025.',
+    label:'immunize.org ATE: Scheduling',
+    tip:'immunize.org Ask the Experts — Pneumococcal: Scheduling & Documentation. Q&A on PCV15+PPSV23 intervals: standard 1 year (minimum 8 weeks for immunocompromised, CSF leak, cochlear implant). Addresses what to do if doses given too close together. Updated September 2025.',
     url:'https://www.immunize.org/ask-experts/topic/pneumococcal/scheduling-documentation/'
   },
   ate_menc: {
     label:'immunize.org ATE: MenACWY',
-    tip:'immunize.org Ask the Experts — Meningococcal ACWY. Clinical Q&A on dosing schedules, booster timing, college/military requirements, interchangeability (MenACWY products ARE interchangeable; Menactra expired 2023), and high-risk indications. Updated January 2026.',
-    url:'https://www.immunize.org/ask-experts/topic/menacwy/'
+    tip:'immunize.org Ask the Experts — Meningococcal ACWY: Vaccine Recommendations. Q&A on dosing schedules, booster timing, college/military requirements, interchangeability (MenACWY products ARE interchangeable; Menactra expired 2023), and routine adolescent schedule. Updated January 2026.',
+    url:'https://www.immunize.org/ask-experts/topic/menacwy/vaccine-recommendations-menacwy/'
   },
   ate_menc_risk: {
     label:'immunize.org ATE: MenACWY Risk',
