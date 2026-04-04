@@ -807,7 +807,7 @@ select:focus, input[type="number"]:focus {
   color: var(--green);
 }
 </style>
-
+</head>
 <body>
 
 <div class="header">
@@ -2060,13 +2060,13 @@ function analyze() {
   function makeForecastItems(items, prefix) {
     // Register metadata for this prefix (includes smart flags for pneumococcal logic)
     window._forecastMeta[prefix] = items.map(d => ({
-      intervalDays:         d.intervalDays         ?? null,
-      intervalFrom:         d.intervalFrom         ?? null,
-      smartPneuDose1:       d.smartPneuDose1       ?? false,
-      smartPneuDose2:       d.smartPneuDose2       ?? false,
-      smartPneuAfterPPSV23: d.smartPneuAfterPPSV23 ?? false,
-      isImmuno:             d.isImmuno             ?? false,
-      smartMenBDose1:       d.smartMenBDose1       ?? false,
+      intervalDays:         d.intervalDays         !== undefined ? d.intervalDays         : null,
+      intervalFrom:         d.intervalFrom         !== undefined ? d.intervalFrom         : null,
+      smartPneuDose1:       d.smartPneuDose1       ? true : false,
+      smartPneuDose2:       d.smartPneuDose2       ? true : false,
+      smartPneuAfterPPSV23: d.smartPneuAfterPPSV23 ? true : false,
+      isImmuno:             d.isImmuno             ? true : false,
+      smartMenBDose1:       d.smartMenBDose1       ? true : false,
       isMenBStep:           !!(d.tags && d.tags.includes('menb')),
       isMencStep:           !!(d.tags && d.tags.includes('menc')),
       isDone:               d.status === 'done',
